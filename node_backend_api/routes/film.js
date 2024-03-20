@@ -5,6 +5,21 @@ const auth = require("../middlewares/auth.js");
 const { check, validationResult } = require("express-validator");
 
 /**
+ * Cette route permet d'initialiser la base de données avec des données de test
+ * @route POST /films/initialize
+ */
+// router.post("/initialize", async (req, res) => {
+//     const donneesTest = require("../data/filmsDepart.js");
+//     donneesTest.forEach(async (film) => {
+//         await db.collection("films").add(film);
+//     });
+
+//     res.statusCode = 200;
+//     res.json({ message: "Données initialisées" });
+// });
+
+
+/**
  * Cette route permet de récupérer la liste des films
  * @route GET /films
  */
@@ -18,17 +33,17 @@ router.get("/films", async (req, res) => {
             const donneesRef = await db.collection("film").orderBy(tri, direction).limit(50).get();
             const donneesFinale = [];
 
-            if(donneesRef.size <= 0){
-                    const donneesTest = require("./data/filmsTest.js");
+            // if(donneesRef.size <= 0){
+            //         const donneesTest = require("./data/filmsTest.js");
             
-                    donneesTest.forEach(async (element) => {
-                        await db.collection("film").add(element);
-                    });
+            //         donneesTest.forEach(async (element) => {
+            //             await db.collection("film").add(element);
+            //         });
             
-                    return res.json({
-                        message: "DB Film connecté",
-                    });
-            }
+            //         return res.json({
+            //             message: "DB Film connecté",
+            //         });
+            // }
 
             donneesRef.forEach((doc) => {
                 donneesFinale.push({ id:doc.id,...doc.data()});
