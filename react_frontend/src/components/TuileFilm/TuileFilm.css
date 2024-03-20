@@ -1,0 +1,28 @@
+.card {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    max-width: 300px;
+    max-height: 500px;
+    transition: 0.3s;
+    margin: 2vh;
+    padding: 2vh;
+}
+
+.card:hover {
+    transform: scale(1.2);
+}
+
+.card:hover img {
+    transform: scale(1.2); 
+    border: 1px solid green; 
+    border-radius: 3px; 
+    
+}
+
+img{
+    max-width: 130px;
+    max-height: 195px;
+    transition: 0.3s;
+    border: 1px solid rgb(80, 88, 97); 
+}

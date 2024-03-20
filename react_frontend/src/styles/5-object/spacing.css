@@ -1,0 +1,15 @@
+.mt-xsmall {
+    margin-top: calc(var(--space-base))
+}
+
+.mt-small {
+    margin-top: calc(var(--space-base) * 2)
+}
+
+.mt-medium {
+    margin-top: calc(var(--space-base) * 4)
+}
+
+.mt-large {
+    margin-top: calc(var(--space-base) * 8)
+}

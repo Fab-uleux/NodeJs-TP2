@@ -1,0 +1,27 @@
+.filtre{
+    background-color:rgba(30, 38, 45, 1); 
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    position: relative;
+    height: 14vh;
+    margin: 0;
+    color: rgba(170, 186, 204, 1);
+}
+
+.filtre ul {    
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.filtre li {
+    list-style: none;
+    margin: 10px;
+    
+}
+
+.filtre li:hover {
+    color: #fff;
+}

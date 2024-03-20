@@ -1,0 +1,23 @@
+.film{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    justify-content: center;
+    background-color:rgba(30, 38, 45, 1); 
+    height: auto;
+    color: rgba(170, 186, 204, 1);
+    padding: 2vh;
+}
+
+.poster img{
+    margin: auto;
+    min-height: 500px;
+    min-width: 350px;
+}
+
+.header{
+    margin: 4vh;
+}
+
+
+

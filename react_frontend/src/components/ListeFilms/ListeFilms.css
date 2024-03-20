@@ -1,0 +1,10 @@
+main{
+    background-color:rgba(30, 38, 45, 1); 
+    height: auto;
+}
+
+.tuile {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 2px 16px;
+  }

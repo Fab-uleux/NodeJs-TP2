@@ -1,0 +1,21 @@
+/* SETTINGS */
+
+@import url(./styles/1-settings/variable.css);
+
+/* TOOLS */
+
+/* GENERIC */
+
+@import url(./styles/3-generic/reset.css);
+@import url(./styles/3-generic/body.css);
+
+/* ELEMENTS */
+
+@import url(./styles/4-elements/typo.css);
+
+/* OBJECT */
+
+@import url(./styles/5-object/spacing.css);
+@import url(./styles/5-object/wrapper.css);
+
+/* UTILITIES */

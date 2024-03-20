@@ -1,0 +1,38 @@
+.note{
+    display: flex;
+    flex-grow: 1;
+    align-items: center;
+    flex-direction: column;
+}
+.soumettre{
+    margin: 2vh;
+}
+
+.soumettre button {
+    background-color: transparent;
+    border: none;
+    font-size: 0; 
+    cursor: pointer;
+    position: relative;
+}
+/* ARGGGHHHHH PK SA MARCHE PO */
+.soumettre button::before {
+    font-size: 56px; 
+    content: "★"; 
+    color: rgba(170, 186, 204, 0.3); 
+}
+
+.star{
+    color: rgba(170, 186, 204, 1);
+}
+
+.soumettre button:hover {
+    color: rgba(170, 186, 204, 1);
+}
+.total{
+    margin:2vh;
+}
+.moy{
+    margin:2vh;
+}
+

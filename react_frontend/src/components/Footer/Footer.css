@@ -1,0 +1,12 @@
+footer{
+    display: relative;
+    background-color:rgba(20, 24, 28, 1);
+    color: rgba(170, 186, 204, 1); 
+    margin: 0;
+    padding: 0;
+}
+footer h1{
+    color: rgba(170, 186, 204, 1); 
+    margin: 0;
+    padding: 2rem;
+}

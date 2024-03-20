@@ -1,0 +1,14 @@
+.input-group{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-block: 1rem;
+}
+
+form.valid{
+    background-color: green;
+}
+
+form.invalid{
+    background-color: red;
+}
