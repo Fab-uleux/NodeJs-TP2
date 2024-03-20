@@ -8,15 +8,15 @@ const { check, validationResult } = require("express-validator");
  * Cette route permet d'initialiser la base de données avec des données de test
  * @route POST /films/initialize
  */
-// router.post("/initialize", async (req, res) => {
-//     const donneesTest = require("../data/filmsDepart.js");
-//     donneesTest.forEach(async (film) => {
-//         await db.collection("films").add(film);
-//     });
+router.post("/initialize", async (req, res) => {
+    const donneesTest = require("../data/filmsDepart.js");
+    donneesTest.forEach(async (film) => {
+        await db.collection("films").add(film);
+    });
 
-//     res.statusCode = 200;
-//     res.json({ message: "Données initialisées" });
-// });
+    res.statusCode = 200;
+    res.json({ message: "Données initialisées" });
+});
 
 
 /**
@@ -175,3 +175,6 @@ router.delete("/films/:id", auth, async (req, res) => {
         res.json({ message: "Vous êtes un pas bon qui ne delete pas" });
     }    
 });
+
+
+module.exports = router;
