@@ -5,8 +5,8 @@ import { useParams } from 'react-router-dom';
 function Note() {
     let { id } = useParams();
 
-    const urlFilm = `https://four1f-node-api.onrender.com/films/${id}`
-    // const urlFilm = `https://nodejstp1.onrender.com/films/${id}`
+    // const urlFilm = `https://four1f-node-api.onrender.com/films/${id}`
+    const urlFilm = `https://nodejs-tp2.onrender.com/films/${id}`
 
     const [film, setFilm] = useState({})
     const [moy, setMoy] = useState("")
