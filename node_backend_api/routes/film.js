@@ -69,7 +69,7 @@ router.get("/:id", async (req, res) => {
     try{
         const filmId = req.params.id;
 
-        const donneeRef = await db.collection("film").doc(filmId).get();
+        const donneeRef = await db.collection("films").doc(filmId).get();
 
         const donnee = donneeRef.data();
 
@@ -135,7 +135,7 @@ router.put("/:id",[
         const id = req.params.id;
         const donneesModifiees = req.body;
 
-        await db.collection("film").doc(id).update(donneesModifiees);
+        await db.collection("films").doc(id).update(donneesModifiees);
 
         res.statusCode = 200;
         res.json({ message: "Le film a été modifiée" });
@@ -153,7 +153,7 @@ router.delete("/:id", auth, async (req, res) => {
     try{
         const id = req.params.id;
 
-        const resultat = await db.collection("film").doc(id).delete();
+        const resultat = await db.collection("films").doc(id).delete();
 
         res.statusCode = 200;
         res.json({ message: "Le film a été supprimé" });

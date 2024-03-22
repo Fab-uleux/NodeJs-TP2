@@ -2,7 +2,7 @@ import './Film.css';
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
 import  Commentaire  from '../Commentaire/Commentaire'
-import Note from '../Note/Note';
+// import Note from '../Note/Note';
 
 function Film() {
 
@@ -17,7 +17,7 @@ useEffect(() => {
   fetch(urlFilm)
     .then((reponse) => reponse.json())
     .then((data) => {
-      //console.log(data.commentaires)
+      console.log(data)
       setFilm(data);
     })
 }, []);
@@ -34,7 +34,7 @@ useEffect(() => {
         <h3>{film?.description}</h3>
       </div>
       <section className='user'>
-        <Note />
+        {/* <Note /> */}
         <Commentaire data={{param: id, commentaires: film.commentaires}} />
       </section>
     </article>

@@ -103,7 +103,7 @@ function App() {
             <Route path="/" element={<Acceuil />}/>
             <Route path="/accueil" element={<Acceuil />}/>
             <Route path="/liste-films" element={<ListeFilms />}/>
-            <Route path="/film/:id" element={<Film />}/>
+            <Route path="/films/:id" element={<Film />}/>
             <Route path="/filtre" element={<Filtre />}/>
             <Route element={<PrivateRoute />}>
               <Route path="/admin"  />

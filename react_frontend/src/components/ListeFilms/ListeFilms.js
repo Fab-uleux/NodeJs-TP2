@@ -30,7 +30,7 @@ function ListeFilms() {
 
   const tuileFilm = listeFilms.map((film, index) => {
     return (
-      <Link key={index} to={`/film/${film.id}`}>
+      <Link key={index} to={`/films/${film.id}`}>
         <TuileFilm data={film} />
       </Link>
     );
