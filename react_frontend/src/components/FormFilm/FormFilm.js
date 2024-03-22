@@ -1,7 +1,21 @@
 import { useState } from 'react';
 import '../FormFilm/FormFilm.css';
 
+import { useNavigate } from 'react-router-dom';
+
 function FormFilm(){
+    const genres = [
+        "Action",
+        "Aventure",
+        "Comédie",
+        "Frame",
+        "Fantaisie",
+        "Horreur",
+        "Policier",
+        "Science-Fiction",
+        "Thriller",
+        "Western",
+    ]
 
     const [formData, setFormData] = useState({
         titre:"",
@@ -13,6 +27,7 @@ function FormFilm(){
     })
 
     const [formValidity, setFromValidity] = useState("invalid")
+    const navigate = useNavigate();
 
     function onFormDataChange(e){
         const {name, value} = e.target;
@@ -53,9 +68,9 @@ function FormFilm(){
                 titreVignette:"vide.jpg",
             });
             setFromValidity("invalid")
+            navigate("/")
         } else {
-            const messageErreur = response.error;
-            console.log("Erreur", messageErreur)
+            console.log("Erreur")
         }
     }
 
@@ -108,15 +123,15 @@ function FormFilm(){
                     onChange={onFormDataChange}
                     ></input>
                 </div>
-                <div className="input-group">
-                    <label htmlFor="realisation">Genre</label>
-                    <input 
-                    type="text"
-                    id="genre" 
-                    name="genre" 
-                    value= {formData.genre} 
-                    onChange={onFormDataChange}
-                    ></input>
+                <div className='input-group'>
+                    <p>Genre</p>
+                    {
+                        genres.map((element,index)=>{
+                            return (
+                                <div></div>
+                            )
+                        })
+                    }
                 </div>
                 <div className="input-group">
                     <label htmlFor="realisation">titreVignette</label>
@@ -130,7 +145,7 @@ function FormFilm(){
                 </div>
                 <input type="submit" value="Envoyer" disabled={formValidity == "invalid" ? "disabled" : ""}></input>
             </form>
-            { messageErreur = <div className='erreur'></div>}
+            { <div className='erreur'></div>}
         </div>
     )
 

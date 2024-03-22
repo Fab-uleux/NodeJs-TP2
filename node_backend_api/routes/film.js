@@ -9,7 +9,7 @@ const { check, validationResult } = require("express-validator");
  * @route POST /films/initialize
  */
 router.post("/initialize", async (req, res) => {
-    const donneesTest = require("../data/filmsDepart.js");
+    const donneesTest = require("../data/filmsTest.js");
     donneesTest.forEach(async (film) => {
         await db.collection("films").add(film);
     });
@@ -85,20 +85,6 @@ router.get("/:id", async (req, res) => {
     }
     
 });
-
-/**
- * Cette route permet d'initialiser la base de données avec des données de test
- * @route POST /films/initialize
- */
-// router.post("/initialize", async (req, res) => {
-//     const donneesTest = require("../data/filmsDepart.js");
-//     donneesTest.forEach(async (film) => {
-//         await db.collection("films").add(film);
-//     });
-
-//     res.statusCode = 200;
-//     res.json({ message: "Données initialisées" });
-// });
 
 /**
  * Cette route permet de créer un film

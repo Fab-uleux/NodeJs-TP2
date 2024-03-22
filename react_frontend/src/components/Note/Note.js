@@ -13,21 +13,34 @@ function Note() {
     const [total, setTotal] = useState("")
     const [note, setNote] = useState("")
 
-
     useEffect(() => {
         fetch(urlFilm)
             .then((reponse) => reponse.json())
             .then((data) => {
-            setFilm(data);
-            // console.log(data)
-    
-            calculNote(data.notes)
+                setFilm(data);
+                calculNote(data.notes)
             })
         }, []);
 
+    let blockShowNote;
+    if ( total > 0) {
+        blockShowNote = (
+            <div className='moy'>
+                <h1> Moyenne: {moy}</h1>
+                <small>Vote total: {total}</small>
+            </div>
+        );
+    } else {
+        blockShowNote = <h3>Ce film n'a pas de vote</h3>;
+    }
+    
+
     function calculNote(data){
+    if(data === undefined){
+        data = []
+    } else {
+        // console.log(data)
         let dataNote = data
-        // console.log(dataNote)
         let somme = 0;
         let compte = 0;
 
@@ -42,38 +55,21 @@ function Note() {
 
         setTotal(totalVote)
         setMoy(moyVote)
-    }
-
-    let blockShowNote;
-    if ( total > 0) {
-        blockShowNote = (
-            <div className='moy'>
-                <h1> Moyenne: {moy}</h1>
-                <small>Vote total: {total}</small>
-            </div>
-        );
-    } else {
-        blockShowNote = <h3>Ce film n'a pas de vote</h3>;
+        }
     }
 
     async function soumettreNote(e){
-    // console.log(e.target.textContent)
-
+    
     let note = e.target.getAttribute('data-value');
-    let aNotes = []
-    console.log(note)
-    setNote(note)
-
+    let aNotes = film.notes
     
-    
-    // if (!film.note) {
-    //     aNotes = [];
-    //     console.log("Prout")
-    // } else {
-        aNotes = film.notes;
+    if (!film.note) {
+        aNotes = [6];
+    } else {
+        setNote(note)
         aNotes.push(Number(note));
-        // console.log(aNotes)
-    // }
+        console.log(aNotes)
+    }
 
     const oOption = {
         method: 'PUT',
@@ -94,7 +90,6 @@ function Note() {
     });
     
     }
-    console.log(note)
     return(
     <section className='note'>
         <div className='soumettre'>

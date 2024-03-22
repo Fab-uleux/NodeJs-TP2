@@ -20,6 +20,9 @@ function Entete(props) {
                 <NavLink to="/admin" className={"underline"}>
                     Page privée
                 </NavLink>
+                <NavLink to="/formfilm" className={"underline"}>
+                    Page privée
+                </NavLink>
             </nav>
         ) : (
             ""
