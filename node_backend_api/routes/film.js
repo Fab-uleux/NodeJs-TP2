@@ -23,7 +23,7 @@ router.post("/initialize", async (req, res) => {
  * Cette route permet de récupérer la liste des films
  * @route GET /films
  */
-router.get("/films", async (req, res) => {
+router.get("/", async (req, res) => {
 
     try {
         const tri = req.query.tri || "titre";
@@ -64,7 +64,7 @@ router.get("/films", async (req, res) => {
  * Cette route permet de récupérer un film
  * @route GET /films/{id}
  */
-router.get("/films/:id", async (req, res) => {
+router.get("/:id", async (req, res) => {
     try{
         const filmId = req.params.id;
 
@@ -136,7 +136,7 @@ router.post(
  * Cette route permet de modifier un film
  * @route PUT /films/{id}
  */
-router.put("/films/:id",[
+router.put("/:id",[
     check("annee").escape().trim().notEmpty(),
     check("description").escape().trim().notEmpty(),
     check("genres").escape().trim().notEmpty(),
@@ -162,7 +162,7 @@ router.put("/films/:id",[
  * Cette route permet de supprimer un film
  * @route DELETE /films/{id}
  */
-router.delete("/films/:id", auth, async (req, res) => {
+router.delete("/:id", auth, async (req, res) => {
     try{
         const id = req.params.id;
 
