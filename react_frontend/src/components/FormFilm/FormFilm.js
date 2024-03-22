@@ -32,11 +32,30 @@ function FormFilm(){
     function onFormDataChange(e){
         const {name, value} = e.target;
 
-        const donneeModifiee = {...formData, [name]: value};
-        setFormData(donneeModifiee)
+        if(name.startsWith("genre")){
+            console.log("patate")
+            const estCoche = e.target.checked;
+            let genres = formData.genre || [];
+                if(!estCoche && genres.includes(value)){
+                    genres = genres.filter((element,index)=>{
+                        return element !== value
+                    })
+                }else if(estCoche && !genres.includes(value)) {
+                    genres.push(value)
+                }
+            const donneeModifiee = { ...formData, "genres":genres };
+            setFormData(donneeModifiee)
+        } else if(name == "titreVignette") {
+            const nomFichier = e.target.file[0].name;
+            const donneeModifiee = { ...formData, titreVignette: nomFichier }
+            setFormData(donneeModifiee)
+        } else {
+            const donneeModifiee = {...formData, [name]: value};
+            setFormData(donneeModifiee)
 
-        const estValide = e.target.form.chechValidity() ? "valid" : "invalid";
-        setFromValidity(estValide)
+            const estValide = e.target.form.chechValidity() ? "valid" : "invalid";
+            setFromValidity(estValide)
+        }
     }
 
     async function onFormSubmit(e){
@@ -128,7 +147,16 @@ function FormFilm(){
                     {
                         genres.map((element,index)=>{
                             return (
-                                <div></div>
+                                <div key={index}>
+                                    <input type='checkbox'
+                                        id={element}
+                                        name={`genre-${element}`}
+                                        value={element}
+                                        onChange={onFormDataChange}
+                                        checked={formData.genre.includes(element)}
+                                    />
+                                    <label htmlFor={element}>{element}</label>
+                                </div>
                             )
                         })
                     }
@@ -137,10 +165,11 @@ function FormFilm(){
                     <label htmlFor="realisation">titreVignette</label>
                     <input 
                     type="text"
-                    id="titreVignette" 
                     name="titreVignette" 
-                    value= {formData.titreVignette} 
+                    id="titreVignette" 
+                    accept=".jpg,.jpeg,.png,.webp"
                     onChange={onFormDataChange}
+                    value= {formData.titreVignette} 
                     ></input>
                 </div>
                 <input type="submit" value="Envoyer" disabled={formValidity == "invalid" ? "disabled" : ""}></input>

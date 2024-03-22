@@ -8,9 +8,10 @@ const { check, validationResult } = require("express-validator");
  * Cette route permet d'initialiser la base de données avec des données de test
  * @route POST /films/initialize
  */
-router.post("/initialize", async (req, res) => {
-    const donneesTest = require("./data/filmsTest.js");
+router.get("/initialize", async (req, res) => {
+    const donneesTest = require("../data/filmsTest.js");
     donneesTest.forEach(async (film) => {
+        console.log(film)
         await db.collection("films").add(film);
     });
 
@@ -30,7 +31,7 @@ router.get("/", async (req, res) => {
         const direction = req.query["order-direction"] || "asc";
 
         if (tri == "titre" || tri == "realisation" || tri == "annee" && direction == "asc" || direction == "desc") {
-            const donneesRef = await db.collection("film").orderBy(tri, direction).limit(50).get();
+            const donneesRef = await db.collection("films").orderBy(tri, direction).limit(50).get();
             const donneesFinale = [];
 
             // if(donneesRef.size <= 0){

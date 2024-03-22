@@ -18,7 +18,10 @@ function Note() {
             .then((reponse) => reponse.json())
             .then((data) => {
                 setFilm(data);
-                calculNote(data.notes)
+                let notes = Array.isArray(data.notes) ? data.notes : []
+                calculNote(notes)
+                
+                
             })
         }, []);
 
@@ -34,13 +37,13 @@ function Note() {
         blockShowNote = <h3>Ce film n'a pas de vote</h3>;
     }
     
-
-    function calculNote(data){
-    if(data === undefined){
-        data = []
+    function calculNote(vote){
+        let voteE = Number(e.target.getAttribute('data-value'))
+    if(!vote){
+        vote = [voteE]
     } else {
-        // console.log(data)
-        let dataNote = data
+        console.log("calculeNote(data)",vote)
+        let dataNote = vote
         let somme = 0;
         let compte = 0;
 
@@ -60,16 +63,16 @@ function Note() {
 
     async function soumettreNote(e){
     
-    let note = e.target.getAttribute('data-value');
-    let aNotes = film.notes
+    let note = Number(e.target.getAttribute('data-value'));
+    let aNotes;
+        if(!film.notes){
+            film.notes = []
+        } else {
+            aNotes = film.notes
+            aNotes.push(Number(note));
+            console.log(aNotes)
+        }
     
-    if (!film.note) {
-        aNotes = [6];
-    } else {
-        setNote(note)
-        aNotes.push(Number(note));
-        console.log(aNotes)
-    }
 
     const oOption = {
         method: 'PUT',
