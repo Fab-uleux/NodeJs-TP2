@@ -9,7 +9,7 @@ const { check, validationResult } = require("express-validator");
  * @route POST /films/initialize
  */
 router.post("/initialize", async (req, res) => {
-    const donneesTest = require("../data/filmsTest.js");
+    const donneesTest = require("./data/filmsTest.js");
     donneesTest.forEach(async (film) => {
         await db.collection("films").add(film);
     });
