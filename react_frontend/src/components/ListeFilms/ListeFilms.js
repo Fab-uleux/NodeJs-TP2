@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 
 import TuileFilm from "../TuileFilm/TuileFilm"
-import Film from "../Film/Film"
 import Filtre from "../Filtre/Filtre"
 
 import './ListeFilms.css';

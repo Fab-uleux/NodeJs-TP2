@@ -1,4 +1,3 @@
-//npm install react-router-dom
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { AnimatePresence } from 'framer-motion';
 import React, { useState, useEffect } from 'react';
@@ -22,55 +21,54 @@ export const AppContext = React.createContext();
 
 function App() {
   //Variable contenant l'état de connexion
-  const [estConnecte, setConnexion] = useState(false);
+const [estConnecte, setConnexion] = useState({ estLog: false, usager: ""});
 
   //Vérification de la validité
-  useEffect(() => {
-      if (localStorage.getItem("api-film")) {
-          //On vérifie à chaque changement dans la page si notre jeton est valide
-          setConnexion(jetonValide());
-      }
-  }, []);
+useEffect(() => {
+    if (localStorage.getItem("api-film")) {
+        setConnexion(jetonValide());
+    }
+}, []);
 
-  async function login(e) {
-      //Si on est connecté et qu'on appuie sur le bouton
-      console.log(estConnecte);
+async function login(e) {
+    //Si on est connecté et qu'on appuie sur le bouton
+    console.log(estConnecte);
 
-      e.preventDefault();
-      const form = e.target;
-      console.log("here");
-      if (form.dataset.connexion == "false") {
-          const body = {
-              courriel: form.courriel.value,
-              mdp: form.mdp.value,
-          };
+    e.preventDefault();
+    const form = e.target;
+    console.log("Login");
+    if (form.dataset.connexion == "false") {
+        const body = {
+            courriel: form.courriel.value,
+            mdp: form.mdp.value,
+        };
 
-          // console.log(body);
-          const data = {
-              method: "POST",
-              headers: {
-                  "Content-Type": "application/json",
-              },
-              body: JSON.stringify(body),
-          };
-          const reponse = await fetch("http://localhost:3301/utilisateurs/connexion", data);
-          const token = await reponse.json();
-          console.log(token);
+        // console.log(body);
+        const data = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(body),
+        };
+        const reponse = await fetch("http://localhost:3301/utilisateurs/connexion", data);
+        const token = await reponse.json();
+        console.log(token);
 
-          if (reponse.status === 200) {
-              console.log(token);
-              localStorage.setItem("api-film", token);
-              setConnexion(true);
-          }
-          form.reset();
-      } else {
-          setConnexion(false);
-          localStorage.removeItem("api-film");
-          return;
-      }
-  }
+        if (reponse.status === 200) {
+            console.log(token);
+            localStorage.setItem("api-film", token);
+            setConnexion(true);
+        }
+        form.reset();
+    } else {
+        setConnexion(false);
+        localStorage.removeItem("api-film");
+        return;
+    }
+}
 
-  function jetonValide() {
+function jetonValide() {
     try {
         const token = localStorage.getItem("api-film");
         const decode = jwtDecode(token);
@@ -94,28 +92,29 @@ function App() {
   // handleLogout={logout}
   // }
 
-  return (
-    <AppContext.Provider value={estConnecte}>
-        <Entete handleLogin={login} estConnecte={estConnecte} />
-        <AnimatePresence mode="wait">
+    return (
+        <AppContext.Provider value={estConnecte}>
+            
+            <Entete handleLogin={login}/>
+            {/* <AnimatePresence mode="wait"> */}
 
-          <Routes>
-            <Route path="/" element={<Acceuil />}/>
-            <Route path="/accueil" element={<Acceuil />}/>
-            <Route path="/liste-films" element={<ListeFilms />}/>
-            <Route path="/films/:id" element={<Film />}/>
-            <Route path="/filtre" element={<Filtre />}/>
-            <Route element={<PrivateRoute />}>
-              <Route path="/admin"  />
-              <Route path="/admin/ajout-film" element={<FormFilm />}></Route>
-            </Route>
-            <Route path="/404" element={<Erreur404 />}/>
-          </Routes>
+            <Routes>
+                <Route path="/" element={<Acceuil />}/>
+                <Route path="/accueil" element={<Acceuil />}/>
+                <Route path="/liste-films" element={<ListeFilms />}/>
+                <Route path="/films/:id" element={<Film />}/>
+                <Route path="/filtre" element={<Filtre />}/>
+                <Route element={<PrivateRoute />}>
+                    <Route path="/admin"  />
+                    <Route path="/admin/ajout-film" element={<FormFilm />}></Route>
+                </Route>
+                <Route path="/404" element={<Erreur404 />}/>
+            </Routes>
 
-        </AnimatePresence>
-        <Footer />
-    </AppContext.Provider>
-  );
+            {/* </AnimatePresence> */}
+            <Footer />
+        </AppContext.Provider>
+    );
 }
 
 export default App;
