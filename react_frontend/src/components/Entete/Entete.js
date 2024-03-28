@@ -16,14 +16,10 @@ function Entete(props) {
         </div>
         <NavLink to="liste-films">Liste de films</NavLink>
         {contexte ? (
-            <nav>
-                <NavLink to="/admin" className={"underline"}>
-                    Page privée
-                </NavLink>
-                <NavLink to="/formfilm" className={"underline"}>
-                    Page privée
-                </NavLink>
-            </nav>
+        <div>
+          <NavLink to="/admin" className={"underline"}>Admin</NavLink>
+          <NavLink to="/formfilm" className={"underline"}>Form Film</NavLink>
+        </div>  
         ) : (
             ""
         )}

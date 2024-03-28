@@ -13,7 +13,7 @@ import Admin from '../Admin/Admin';
 import Footer from '../Footer/Footer';
 import Erreur404 from '../Erreur404/Erreur404'
 import PrivateRoute from "../PrivateRoute/PrivateRoute";
-import FormFilm from  '../FormFilm/FormFilm.js'
+import FormFilm from  '../FormFilm/FormFilm'
 
 import './App.css'; 
 
@@ -36,7 +36,7 @@ async function login(e) {
 
     e.preventDefault();
     const form = e.target;
-    console.log("Login");
+
     if (form.dataset.connexion == "false") {
         const body = {
             courriel: form.courriel.value,
@@ -105,9 +105,9 @@ function jetonValide() {
                 <Route path="/films/:id" element={<Film />}/>
                 <Route path="/filtre" element={<Filtre />}/>
                 <Route element={<PrivateRoute />}>
-                    <Route path="/admin"  />
-                    <Route path="/admin/ajout-film" element={<FormFilm />}></Route>
+                    <Route path="/admin" element={<Admin />}></Route>
                 </Route>
+                <Route path="/formfilm" element={<FormFilm />}></Route>
                 <Route path="/404" element={<Erreur404 />}/>
             </Routes>
 

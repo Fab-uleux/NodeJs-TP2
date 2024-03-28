@@ -26,16 +26,16 @@ function FormFilm(){
         titreVignette:"vide.jpg",
     })
 
-    const [formValidity, setFromValidity] = useState("invalid")
+    const [formValidity, setFromValidity] = useState("invalid");
     const navigate = useNavigate();
 
     function onFormDataChange(e){
         const {name, value} = e.target;
 
         if(name.startsWith("genre")){
-            console.log("patate")
             const estCoche = e.target.checked;
             let genres = formData.genre || [];
+
                 if(!estCoche && genres.includes(value)){
                     genres = genres.filter((element,index)=>{
                         return element !== value
@@ -46,14 +46,15 @@ function FormFilm(){
             const donneeModifiee = { ...formData, "genres":genres };
             setFormData(donneeModifiee)
         } else if(name == "titreVignette") {
-            const nomFichier = e.target.file[0].name;
+            const nomFichier = e.target.files[0].name;
             const donneeModifiee = { ...formData, titreVignette: nomFichier }
+            console.log(e.target, nomFichier);
             setFormData(donneeModifiee)
         } else {
             const donneeModifiee = {...formData, [name]: value};
             setFormData(donneeModifiee)
 
-            const estValide = e.target.form.chechValidity() ? "valid" : "invalid";
+            const estValide = e.target.form.checkValidity() ? "valid" : "invalid";
             setFromValidity(estValide)
         }
     }
@@ -68,12 +69,12 @@ function FormFilm(){
             method:"POST",
             headers:{
                 "Content-Type":"application/json",
-                authorization:""
+                authorization: `Bearer ${localStorage.getItem("api-film")}`,
             }, 
             body:JSON.stringify(formData),
         }
 
-        const request = await fetch("http://localhost:3301/api/films", data)
+        const request = await fetch("http://localhost:3301/films", data)
         const response = await request.json();
 
         if(request.status === 200){
@@ -89,7 +90,8 @@ function FormFilm(){
             setFromValidity("invalid")
             navigate("/")
         } else {
-            console.log("Erreur")
+            const messageErreur = response.message;
+            console.log("erreur", messageErreur);
         }
     }
 
@@ -124,22 +126,28 @@ function FormFilm(){
                 </div>
                 <div className="input-group">
                     <label htmlFor="realisation">Realisation</label>
-                    <input 
-                    type="text"
-                    id="realisation" 
-                    name="realisation" 
-                    value= {formData.realisation} 
-                    onChange={onFormDataChange}
+                    <input
+                        type="text"
+                        id="realisation"
+                        name="realisation"
+                        value={formData.realisation}
+                        onChange={onFormDataChange}
+                        required
+                        minLength={1}
+                        maxLength={50}
                     ></input>
                 </div>
                 <div className="input-group">
-                    <label htmlFor="realisation">Annee</label>
-                    <input 
-                    type="date"
-                    id="annee" 
-                    name="annee" 
-                    value= {formData.annee} 
-                    onChange={onFormDataChange}
+                    <label htmlFor="annee">annee</label>
+                    <input
+                        type="text"
+                        id="annee"
+                        name="annee"
+                        value={formData.annee}
+                        onChange={onFormDataChange}
+                        required
+                        minLength={1}
+                        maxLength={10}
                     ></input>
                 </div>
                 <div className='input-group'>
@@ -162,15 +170,14 @@ function FormFilm(){
                     }
                 </div>
                 <div className="input-group">
-                    <label htmlFor="realisation">titreVignette</label>
-                    <input 
-                    type="text"
-                    name="titreVignette" 
-                    id="titreVignette" 
-                    accept=".jpg,.jpeg,.png,.webp"
-                    onChange={onFormDataChange}
-                    value= {formData.titreVignette} 
-                    ></input>
+                    <label htmlFor="titreVignette">Vignette</label>
+                    <input
+                        type="file"
+                        name="titreVignette"
+                        id="titreVignette"
+                        accept=".jpg,.jpeg,.png,.webp"
+                        onChange={onFormDataChange}
+                    />
                 </div>
                 <input type="submit" value="Envoyer" disabled={formValidity == "invalid" ? "disabled" : ""}></input>
             </form>
